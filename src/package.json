@@ -1,0 +1,25 @@
+{
+  "name": "swaggah",
+  "version": "0.0.1",
+  "description": "Zero configuration Swagger/SwaggerUI (openapi spec) for NodeJs",
+  "main": "swaggah.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/studiefredfredrik/swaggah.git"
+  },
+  "keywords": [
+    "node",
+    "swagger",
+    "openapi",
+    "swaggerui"
+  ],
+  "author": "studiefredfredrik",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/studiefredfredrik/swaggah/issues"
+  },
+  "homepage": "https://github.com/studiefredfredrik/swaggah#readme"
+}
