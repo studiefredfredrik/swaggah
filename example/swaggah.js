@@ -8,6 +8,9 @@ module.exports = {
   register: function (app) {
 
     let addRoute = function(obj, path, type){
+      // TODO: fix this regex to wrap the word
+      path = path.replace(/:/g, '{') // Adapt to swagger compatible param declaration
+
       if(!obj.paths[path]) obj.paths[path] = {}
       if(!obj.paths[path][type]) {
         obj.paths[path][type] = {
@@ -96,7 +99,8 @@ module.exports = {
 
     app.get('/openapi',function (req, res){
 
-
+      let route
+      let routes = [];
       app._router.stack.forEach(function(middleware){
         if(middleware.route){ // routes registered directly on the app
           routes.push(middleware.route);

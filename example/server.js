@@ -22,7 +22,7 @@ function startServer(){
   app.post('/test2', (req, res) => {
     res.send('Good morning 😍')
   })
-  app.get('/yolo55/{:id}', (req, res) => {
+  app.get('/yolo55/:id', (req, res) => {
     res.send('Good morning 😍')
   })
 

@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "example",
-    "version": "1.0"
+    "version": "1.0.0"
   },
   "consumes": [
     "application/json"
@@ -113,9 +113,61 @@
         }
       }
     },
-    "/yolo55/{:id}": {
+    "/yolo55/{id}": {
       "get": {
-        "summary": "GET /yolo55/{:id}",
+        "summary": "GET /yolo55/{id}",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Get by id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "examples": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/yolo55/:id}": {
+      "get": {
+        "summary": "GET /yolo55/:id}",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "description": "Get by id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "200 response",
+            "examples": {
+              "application/json": {}
+            }
+          }
+        }
+      }
+    },
+    "/yolo55/:id": {
+      "get": {
+        "summary": "GET /yolo55/:id",
         "produces": [
           "application/json"
         ],
