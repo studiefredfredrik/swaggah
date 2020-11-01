@@ -26,8 +26,8 @@ function startServer(){
     res.send('Good morning 😍')
   })
 
-  let swagger = require('./swaggah');
-  swagger.register(app)
+  let swaggah = require('./swaggah');
+  swaggah.register(app)
 
 
   app.listen(config.port, '0.0.0.0')

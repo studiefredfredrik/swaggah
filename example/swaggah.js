@@ -97,22 +97,5 @@ module.exports = {
     app.get('/swagger/v1/swagger.json', (req, res) => res.json(swaggerDocument));
     app.use('/swagger', swaggerUi.serve, swaggerUi.setup(JSON.parse(swaggerDocument)));
 
-    app.get('/openapi',function (req, res){
-
-      let route
-      let routes = [];
-      app._router.stack.forEach(function(middleware){
-        if(middleware.route){ // routes registered directly on the app
-          routes.push(middleware.route);
-        } else if(middleware.name === 'router'){ // router middleware
-          middleware.handle.stack.forEach(function(handler){
-            route = handler.route;
-            route && routes.push(route);
-          });
-        }
-      });
-      res.send(routes)
-    })
-
   }
 }
