@@ -8,8 +8,21 @@ module.exports = {
   register: function (app) {
 
     let addRoute = function(obj, path, type){
-      // TODO: fix this regex to wrap the word
+      // Replacing (:) params in url with ({}) for swagger
       path = path.replace(/:/g, '{') // Adapt to swagger compatible param declaration
+      let tmpList = path.split('/')
+      let newPath = ''
+      let paramList = []
+      tmpList.forEach((elem, index, array) =>{
+        if(elem === '') return
+        if(elem.includes('{')){
+          newPath = `${newPath}/${elem}}`
+          paramList.push(elem.replace('{', ''))
+        } else{
+          newPath = `${newPath}/${elem}`
+        }
+      })
+      path = newPath // Just added closing brackets to elements
 
       if(!obj.paths[path]) obj.paths[path] = {}
       if(!obj.paths[path][type]) {
@@ -18,16 +31,7 @@ module.exports = {
           "produces": [
             "application/json"
           ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "description": "Get by id",
-              "required": true,
-              "type": "integer",
-              "format": "int32"
-            }
-          ],
+          "parameters": [],
           "responses": {
             "200": {
               "description": "200 response",
@@ -38,6 +42,21 @@ module.exports = {
             }
           }
         }
+
+        // Adding url params
+        obj.paths[path][type].parameters = []
+        paramList.forEach(p => {
+          obj.paths[path][type].parameters.push(
+          {
+            "in": "path",
+            "name": `${p}`,
+            "description": `Parameter ${p}`,
+            "required": true,
+            "type": "string",
+            "format": "string"
+          })
+        })
+
       }
 
     }
