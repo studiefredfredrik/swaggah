@@ -8,8 +8,43 @@ module.exports = {
   register: function (app) {
 
     let addRoute = function(obj, path, type){
-      // TODO: fix this regex to wrap the word
-      path = path.replace(/:/g, '{') // Adapt to swagger compatible param declaration
+      let regex = new RegExp(/:([A-Z])\w+/g)
+      let params = path.match(regex)
+
+      if(params){
+        params.forEach(param => {
+          let paramName = param.replace(':', '')
+          path = path.replace(param, `{${paramName}}`)
+        })
+      }
+
+      let createParam = (param) => {
+        return {
+          "in": "path",
+          "name": param.replace(':', ''),
+          "description": param.replace(':', ''),
+          "required": true,
+          "type": "string",
+        }
+      }
+
+      let createParams = (params, type) => {
+        if(['post', 'put'].includes(type)){
+          return [
+            {
+              "in": "body",
+              "name": 'body',
+            }
+          ]
+        }
+
+        let res = []
+        if(!params) return []
+        params.forEach(param =>{
+          return res.push(createParam(param))
+        })
+        return res
+      }
 
       if(!obj.paths[path]) obj.paths[path] = {}
       if(!obj.paths[path][type]) {
@@ -18,15 +53,9 @@ module.exports = {
           "produces": [
             "application/json"
           ],
-          "parameters": [
-            {
-              "in": "path",
-              "name": "id",
-              "description": "Get by id",
-              "required": true,
-              "type": "integer",
-              "format": "int32"
-            }
+          "parameters": createParams(params, type),
+          "consumes": [
+            "application/json"
           ],
           "responses": {
             "200": {
