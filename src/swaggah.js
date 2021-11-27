@@ -8,21 +8,43 @@ module.exports = {
   register: function (app) {
 
     let addRoute = function(obj, path, type){
-      // Replacing (:) params in url with ({}) for swagger
-      path = path.replace(/:/g, '{') // Adapt to swagger compatible param declaration
-      let tmpList = path.split('/')
-      let newPath = ''
-      let paramList = []
-      tmpList.forEach((elem, index, array) =>{
-        if(elem === '') return
-        if(elem.includes('{')){
-          newPath = `${newPath}/${elem}}`
-          paramList.push(elem.replace('{', ''))
-        } else{
-          newPath = `${newPath}/${elem}`
+      let regex = new RegExp(/:([A-Z])\w+/g)
+      let params = path.match(regex)
+
+      if(params){
+        params.forEach(param => {
+          let paramName = param.replace(':', '')
+          path = path.replace(param, `{${paramName}}`)
+        })
+      }
+
+      let createParam = (param) => {
+        return {
+          "in": "path",
+          "name": param.replace(':', ''),
+          "description": param.replace(':', ''),
+          "required": true,
+          "type": "string",
         }
-      })
-      path = newPath // Just added closing brackets to elements
+      }
+
+      let createParams = (params, type) => {
+        if(['post', 'put'].includes(type)){
+          return [
+            {
+              "in": "body",
+              "name": 'body',
+            }
+          ]
+        }
+
+        let res = []
+        if(!params) return []
+        params.forEach(param =>{
+          return res.push(createParam(param))
+        })
+        return res
+      }
 
       if(!obj.paths[path]) obj.paths[path] = {}
       if(!obj.paths[path][type]) {
@@ -31,7 +53,10 @@ module.exports = {
           "produces": [
             "application/json"
           ],
-          "parameters": [],
+          "parameters": createParams(params, type),
+          "consumes": [
+            "application/json"
+          ],
           "responses": {
             "200": {
               "description": "200 response",
@@ -42,21 +67,6 @@ module.exports = {
             }
           }
         }
-
-        // Adding url params
-        obj.paths[path][type].parameters = []
-        paramList.forEach(p => {
-          obj.paths[path][type].parameters.push(
-          {
-            "in": "path",
-            "name": `${p}`,
-            "description": `Parameter ${p}`,
-            "required": true,
-            "type": "string",
-            "format": "string"
-          })
-        })
-
       }
 
     }
