@@ -1,5 +1,5 @@
 # swaggah
-(Almost) Zero-configuration Swagger/SwaggerUI (openapi spec) for NodeJs  
+Zero-configuration Swagger/SwaggerUI (openapi spec) for NodeJs  
 Build upon `swagger-ui-express`
 
 ## Description  
@@ -16,7 +16,7 @@ file without some user input.
 
 My solution to this is to scrape the express router stack to get all the registered   
 endpoints and build the `swagger.json` file from that. You do this as you run the  
-project locally, the file is then saved, and open for edit so that you can fill in  
+project locally, the file is then saved, and available for edit so that you can fill in  
 response examples and query parameters and other things that we're unable to scrape  
 from the router stack.  
 
@@ -37,7 +37,7 @@ but changes you do to existing ones are preserved.
 
 Swaggah can recognize:
 * Endpoints and enpoint types (get, put, post, delete) are recognized
-* Url parameters are recognized (types are not, assumed to be int's)
+* Url parameters are recognized (types are not, assumed to be strings)
 
 ## Endpoints registered by swaggah
 * `swagger.json` is available at `/swagger/v1/swagger.json`
