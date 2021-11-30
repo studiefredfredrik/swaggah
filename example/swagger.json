@@ -17,15 +17,9 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Get by id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
+        "parameters": [],
+        "consumes": [
+          "application/json"
         ],
         "responses": {
           "200": {
@@ -43,15 +37,9 @@
         "produces": [
           "application/json"
         ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Get by id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
+        "parameters": [],
+        "consumes": [
+          "application/json"
         ],
         "responses": {
           "200": {
@@ -69,13 +57,12 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "id",
-            "description": "Get by id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
+            "in": "body",
+            "name": "body"
           }
+        ],
+        "consumes": [
+          "application/json"
         ],
         "responses": {
           "200": {
@@ -95,13 +82,12 @@
         ],
         "parameters": [
           {
-            "in": "path",
-            "name": "id",
-            "description": "Get by id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
+            "in": "body",
+            "name": "body"
           }
+        ],
+        "consumes": [
+          "application/json"
         ],
         "responses": {
           "200": {
@@ -113,9 +99,9 @@
         }
       }
     },
-    "/yolo55/{id}": {
+    "/yolo/{id}": {
       "get": {
-        "summary": "GET /yolo55/{id}",
+        "summary": "GET /yolo/{id}",
         "produces": [
           "application/json"
         ],
@@ -123,11 +109,12 @@
           {
             "in": "path",
             "name": "id",
-            "description": "Get by id",
             "required": true,
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           }
+        ],
+        "consumes": [
+          "application/json"
         ],
         "responses": {
           "200": {
@@ -139,9 +126,9 @@
         }
       }
     },
-    "/yolo55/:id}": {
+    "/yolo/{id}/new": {
       "get": {
-        "summary": "GET /yolo55/:id}",
+        "summary": "GET /yolo/{id}/new",
         "produces": [
           "application/json"
         ],
@@ -149,37 +136,12 @@
           {
             "in": "path",
             "name": "id",
-            "description": "Get by id",
             "required": true,
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "200 response",
-            "examples": {
-              "application/json": {}
-            }
-          }
-        }
-      }
-    },
-    "/yolo55/:id": {
-      "get": {
-        "summary": "GET /yolo55/:id",
-        "produces": [
+        "consumes": [
           "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "description": "Get by id",
-            "required": true,
-            "type": "integer",
-            "format": "int32"
-          }
         ],
         "responses": {
           "200": {

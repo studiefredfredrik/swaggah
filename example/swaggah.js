@@ -8,25 +8,18 @@ module.exports = {
   register: function (app) {
 
     let addRoute = function(obj, path, type){
-      let regex = new RegExp(/:([A-Z])\w+/g)
-      let params = path.match(regex)
-
-      if(params){
-        params.forEach(param => {
-          let paramName = param.replace(':', '')
-          path = path.replace(param, `{${paramName}}`)
-        })
-      }
-
-      let createParam = (param) => {
-        return {
-          "in": "path",
-          "name": param.replace(':', ''),
-          "description": param.replace(':', ''),
-          "required": true,
-          "type": "string",
-        }
-      }
+      let parts = path.split('/')
+      let params = []
+      let newPathArray = []
+      parts.forEach(part => {
+         if(part.startsWith(':')){
+           params.push(part.replace(':', ''))
+           newPathArray.push(`{${part.replace(':', '')}}`)
+         } else {
+           newPathArray.push(part)
+         }
+      })
+      path = newPathArray.join('/')
 
       let createParams = (params, type) => {
         if(['post', 'put'].includes(type)){
@@ -39,9 +32,13 @@ module.exports = {
         }
 
         let res = []
-        if(!params) return []
         params.forEach(param =>{
-          return res.push(createParam(param))
+          return res.push({
+            "in": "path",
+            "name": param,
+            "required": true,
+            "type": "string",
+          })
         })
         return res
       }

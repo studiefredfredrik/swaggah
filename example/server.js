@@ -22,8 +22,11 @@ function startServer(){
   app.post('/test2', (req, res) => {
     res.send('Good morning 😍')
   })
-  app.get('/yolo55/:id', (req, res) => {
+  app.get('/yolo/:id', (req, res) => {
     res.send('Good morning 😍')
+  })
+  app.get('/yolo/:id/new', (req, res) => {
+    res.send('New Good morning 😍')
   })
 
   let swaggah = require('./swaggah');
@@ -32,6 +35,7 @@ function startServer(){
 
   app.listen(config.port, '0.0.0.0')
   console.log(`Served on http://localhost:${config.port}`)
+  console.log(`SwaggerUI can be found here: http://localhost:${config.port}/swagger`)
 }
 
 startServer()
